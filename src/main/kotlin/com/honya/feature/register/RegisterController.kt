@@ -1,0 +1,53 @@
+package com.honya.feature.register
+
+import com.honya.database.tokens.TokenDTO
+import com.honya.database.tokens.Tokens
+import com.honya.database.users.UserDTO
+import com.honya.database.users.Users
+import com.honya.utils.isValidEmail
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.request.*
+import io.ktor.server.response.*
+import org.jetbrains.exposed.exceptions.ExposedSQLException
+import java.util.*
+
+class RegisterController(){
+
+    suspend fun registerNewUser(call: ApplicationCall) {
+
+        val receive = call.receive<RegisterReceiveRemote>()
+        val userDTO = Users.fetchUser(receive.login)
+
+        if (!receive.email.isValidEmail()) {
+            call.respond(HttpStatusCode.BadRequest, "Email is not valid")
+        }
+
+        if (userDTO != null){
+            call.respond(HttpStatusCode.Conflict, "User already exist")
+        } else {
+            val token = UUID.randomUUID().toString()
+            try {
+                Users.insert(
+                    UserDTO(
+                        login = receive.login,
+                        email = receive.email,
+                        password = receive.password
+                    )
+                )
+
+            } catch (e: Exception){
+                call.respond(HttpStatusCode.Conflict, "User already exist here")
+            }
+
+            Tokens.insert(
+                TokenDTO(
+                    token = token,
+                    login = receive.login
+                )
+            )
+
+            call.respond(RegisterResponseRemote(token = token))
+        }
+    }
+}
