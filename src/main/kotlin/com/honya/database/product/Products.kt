@@ -1,5 +1,8 @@
 package com.honya.database.product
 
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -8,19 +11,19 @@ object Products : Table("products") {
     private val productId = Products.varchar(name = "product_id", length = 70)
     private val name = Products.varchar(name = "name", length = 70)
     private val type = Products.varchar(name = "type", length = 30)
-    private val photoIds = Products.registerColumn<List<String>?>(
-        name = "photo_ids",
-        type = VarCharColumnType(70)
-    )
+    private val photoIds = Products.varchar(name = "photo_ids", length = 3000)
     private val description = Products.varchar(name = "description", length = 3000)
 
+
     fun insert(productDTO: ProductDTO) {
+        val jsonIds : String = Json.encodeToString(productDTO.photoIds)
+
         transaction {
             Products.insert {
                 it[productId] = productDTO.productId
                 it[name] = productDTO.name
                 it[type] = productDTO.type
-                it[photoIds] = productDTO.photoIds
+                it[photoIds] = jsonIds
                 it[description] = productDTO.description
             }
         }
@@ -35,7 +38,7 @@ object Products : Table("products") {
                     productId = result[productId],
                     name = result[name],
                     type = result[type],
-                    photoIds = result[photoIds],
+                    photoIds = Json.decodeFromString(result[photoIds]),
                     description = result[description]
                 )
             }
@@ -53,7 +56,7 @@ object Products : Table("products") {
                     productId = it[productId],
                     name = it[name],
                     type = it[type],
-                    photoIds = it[photoIds],
+                    photoIds = Json.decodeFromString(it[photoIds]),
                     description = it[description]
                 )
             }
@@ -61,5 +64,4 @@ object Products : Table("products") {
             list
         }
     }
-
 }
