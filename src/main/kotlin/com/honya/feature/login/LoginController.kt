@@ -1,10 +1,8 @@
 package com.honya.feature.login
 
-import com.honya.database.tokens.TokenDTO
-import com.honya.database.tokens.Tokens
-import com.honya.database.users.Users
-import com.honya.feature.cache.InMemoryCache
-import com.honya.feature.cache.TokenCache
+import com.honya.database.token.TokenDTO
+import com.honya.database.token.Tokens
+import com.honya.database.user.Users
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*

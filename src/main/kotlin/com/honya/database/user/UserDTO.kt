@@ -1,4 +1,4 @@
-package com.honya.database.users
+package com.honya.database.user
 
 //Data Transfer Object
 class UserDTO (

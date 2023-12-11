@@ -1,6 +1,5 @@
-package com.honya.database.users
+package com.honya.database.user
 
-import com.honya.database.tokens.Tokens
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select

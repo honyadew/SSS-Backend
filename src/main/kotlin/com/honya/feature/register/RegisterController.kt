@@ -1,15 +1,14 @@
 package com.honya.feature.register
 
-import com.honya.database.tokens.TokenDTO
-import com.honya.database.tokens.Tokens
-import com.honya.database.users.UserDTO
-import com.honya.database.users.Users
+import com.honya.database.token.TokenDTO
+import com.honya.database.token.Tokens
+import com.honya.database.user.UserDTO
+import com.honya.database.user.Users
 import com.honya.utils.isValidEmail
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import org.jetbrains.exposed.exceptions.ExposedSQLException
 import java.util.*
 
 class RegisterController(){

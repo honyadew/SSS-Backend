@@ -1,12 +1,9 @@
-package com.honya.database.tokens
+package com.honya.database.token
 
-import ch.qos.logback.core.subst.Token
-import com.honya.database.users.Users
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
-import kotlin.math.log
 
 object Tokens : Table("tokens") {
     private val token = Tokens.varchar(name = "token", length = 70)

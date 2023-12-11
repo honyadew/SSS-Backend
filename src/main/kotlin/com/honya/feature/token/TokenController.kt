@@ -1,7 +1,7 @@
 package com.honya.feature.token
 
-import com.honya.database.tokens.Tokens
-import com.honya.database.users.Users
+import com.honya.database.token.Tokens
+import com.honya.database.user.Users
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -12,7 +12,6 @@ class TokenController() {
     suspend fun performGetToken(call : ApplicationCall) {
         val receive = call.receive<TokenReceiveRemote>()
         val tokenDTO = Tokens.fetchLogin(receive.token)
-        println("||||| token DTO -> ${tokenDTO}")
 
         if(tokenDTO == null){
             call.respond(HttpStatusCode.BadRequest, "Invalid token")
