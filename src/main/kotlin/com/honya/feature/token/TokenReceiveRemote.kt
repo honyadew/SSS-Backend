@@ -11,4 +11,6 @@ data class TokenReceiveRemote (
 data class TokenResponseRemote (
     val login: String,
     val email: String,
+    val firstName: String,
+    val lastName: String
 )

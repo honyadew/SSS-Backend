@@ -31,7 +31,10 @@ class RegisterController(){
                     UserDTO(
                         login = receive.login,
                         email = receive.email,
-                        password = receive.password
+                        password = receive.password,
+                        firstName = receive.firstName,
+                        lastName = receive.lastName,
+                        phoneNumber = receive.phoneNumber
                     )
                 )
 

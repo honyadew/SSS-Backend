@@ -4,5 +4,8 @@ package com.honya.database.user
 class UserDTO (
     val login : String,
     val email : String,
-    val password: String
+    val password: String,
+    val firstName: String?,
+    val lastName: String?,
+    val phoneNumber: String?
 )

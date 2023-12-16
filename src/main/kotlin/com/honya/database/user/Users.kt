@@ -9,14 +9,21 @@ object Users : Table("users") {
     private val login = Users.varchar(name = "login", length = 30)
     private val email = Users.varchar(name = "email", length = 50)
     private val password = Users.varchar(name = "password", length = 50)
+    private val firstName = Users.varchar(name = "first_name", length = 30)
+    private val lastName = Users.varchar(name = "last_name", length = 30)
+    private val phoneNumber = Users.varchar(name = "phone_number", length = 30)
 
 
     fun insert(userDTO: UserDTO){
         transaction {
+            //TODO save null
             Users.insert{
                 it[login] = userDTO.login
                 it[password] = userDTO.password
                 it[email] = userDTO.email
+                it[firstName] = userDTO.firstName?:""
+                it[lastName] = userDTO.lastName?:""
+                it[phoneNumber] = userDTO.lastName?:""
             }
         }
     }
@@ -34,7 +41,10 @@ object Users : Table("users") {
                     UserDTO(
                         login = it[login],
                         email = it[email],
-                        password = it[password]
+                        password = it[password],
+                        firstName = it[firstName],
+                        lastName = it[lastName],
+                        phoneNumber = it[phoneNumber]
                     )
                 }
 

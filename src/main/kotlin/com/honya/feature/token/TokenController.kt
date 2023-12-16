@@ -24,7 +24,9 @@ class TokenController() {
             } else {
                 call.respond(TokenResponseRemote(
                     login = user.login,
-                    email = user.email
+                    email = user.email,
+                    firstName = user.firstName?:"",
+                    lastName = user.lastName?:""
                 ))
             }
         }
