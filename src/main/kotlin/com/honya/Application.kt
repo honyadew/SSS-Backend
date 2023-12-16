@@ -1,5 +1,6 @@
 package com.honya
 
+import com.honya.feature.get.configureGetRouting
 import com.honya.feature.register.configureRegisterRouting
 import com.honya.feature.login.configureLoginRouting
 import com.honya.feature.token.configureTokenRouting
@@ -28,4 +29,5 @@ fun Application.module() {
     configureSerialization()
     configureTokenRouting()
     configureUploadRouting()
+    configureGetRouting()
 }

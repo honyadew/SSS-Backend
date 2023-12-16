@@ -47,7 +47,25 @@ object Products : Table("products") {
         }
     }
 
-    fun getAllProductInfo() : List<ProductDTO>? {
+    fun getProductByType(productType: ProductType) : List<ProductDTO>{
+        return transaction {
+            val result = Products.select(type.eq(productType.key)).toList()
+
+            val products = result.map {
+                ProductDTO(
+                    productId = it[productId],
+                    name = it[name],
+                    type = it[type],
+                    photoIds = Json.decodeFromString(it[photoIds]),
+                    description = it[description]
+                )
+            }
+
+            products
+        }
+    }
+
+    fun getAllProductInfo() : List<ProductDTO> {
         return transaction {
             val result = Products.selectAll().toList()
 
